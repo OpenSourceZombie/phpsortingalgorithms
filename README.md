@@ -14,3 +14,16 @@ Currently supported algorithms
   *Quick sort
   
   *Selection sort
+
+Usage
+ require(Sorty.php)
+ 
+ $result=new Sorty(array $the_array,string $the_algorithm, bool verbose_mode)
+ 
+ Methods
+ 
+ sortNow
+ 
+ array sortNow();
+ 
+ 
