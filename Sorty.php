@@ -1,12 +1,13 @@
 <?php
 
-class Sortdat
+class Sorty
 {
 private $array;   	//the array with elements
 private $algorithm;	//the algorithm that will be used
 private $show;		//flag true:false -->print elements:don't print
 static  $last=array();
-function __construct($array,$algorithm,$show){
+function __construct($array,$algorithm,$show)
+{
 	self::$last=$this->array=$array;
 	$this->algorthim=$algorithm;
 	$this->show=$show;
