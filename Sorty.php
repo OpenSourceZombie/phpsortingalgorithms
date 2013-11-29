@@ -1,11 +1,5 @@
 <?php
 
-$array=array(10,3,4,6,33,1,55,12,67,1,0,-1,-2,-3);
-//var_dump($array);
-$sort=new Sortdat($array,"insertion",true);
-$array=$sort->sortNow();
-//var_dump($sort);
-var_dump($array);
 class Sortdat
 {
 private $array;   	//the array with elements
