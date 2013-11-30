@@ -1,4 +1,10 @@
 <?php
+/*Testing*/
+//$array=array(10,3,4,6,33,1,55,12,67,1,0,-1,-2,-3);
+//var_dump($array);
+//$sort=new Sorty($array,"quick",true);
+//$array=$sort->sortNow();
+
 
 class Sorty
 {
@@ -6,8 +12,7 @@ private $array;   	//the array with elements
 private $algorithm;	//the algorithm that will be used
 private $show;		//flag true:false -->print elements:don't print
 static  $last=array();
-function __construct($array,$algorithm,$show)
-{
+function __construct($array,$algorithm,$show){
 	self::$last=$this->array=$array;
 	$this->algorthim=$algorithm;
 	$this->show=$show;
@@ -25,16 +30,19 @@ switch ($this->algorthim){
 		  return $this->bubblesort();
 	case "insertion":
 		  return $this->insertionsort();
+	default:
+		echo "this algorithm is not supported ";
 	}
 }
 
 function insertionSort()
 {
+	if ($this->show)echo "Insertion Sorting<br/>";
 	$elements=$this->array;	
 	for($i=1; $i<count($elements); $i++) {
         // Always compare the bit we're looking at to its next left neighbor, unless we're at the leftmost side of the array
         for ($j=$i-1; $j>=0; $j--) {
-			$this->showElements($elements);
+			if($this->show)$this->showElements($elements);
             //sleep(1); // this is just so you can see the work in progress
              //$comparisons++;
             // If the left neighbor is actually bigger than our current bit, let's swap them
@@ -54,6 +62,7 @@ return $elements;
 
 function bubbleSort()
 {
+	if($this->show)echo "Bubble Sorting <br />";
 	$elements=$this->array;
     $size = count($elements);
     for ($i=0; $i<$size; $i++) {
@@ -112,55 +121,52 @@ return $elements;
 
 function shellSort()
 {
-$elements=$this->array;
-if ($this->show)echo "Shell Sorting<br />";
-$length=count($elements);
-$k=0;
-$gap[0]=(int) ($length / 2);
-while($gap[$k]>1)
-{
- $k++;
- $gap[$k]=(int)($gap[$k-1]/2);
-}//end while
+	$elements=$this->array;
+	if ($this->show)echo "Shell Sorting<br />";
+	$length=count($elements);
+	$k=0;
+	$gap[0]=(int) ($length / 2);
+	while($gap[$k]>1){
+ 		$k++;
+		 $gap[$k]=(int)($gap[$k-1]/2);
+	}//end while
 
-for($i=0;$i<=$k;$i++)
-{
-$step=$gap[$i];
- for($j=$step;$j<$length;$j++)
- {
-	 $temp=$elements[$j];
-	 $p=$j-$step;
-	 while($p>=0 && $temp<$elements[$p])
-	 {
-		$elements[$p+$step]=$elements[$p];
-		$p=$p-$step;
-		if ($this->show)$this->showElements($elements);
-	 }//end while
-	 $elements[$p+$step]=$temp;
- }//endfor j
-}//endfor i
+	for($i=0;$i<=$k;$i++)
+	{
+		$step=$gap[$i];
+		for($j=$step;$j<$length;$j++) {
+			 $temp=$elements[$j];
+			 $p=$j-$step;
+			 while($p>=0 && $temp<$elements[$p]) {
+				$elements[$p+$step]=$elements[$p];
+				$p=$p-$step;
+				if ($this->show)$this->showElements($elements);
+			 }//end while
+			 $elements[$p+$step]=$temp;
+		 }//endfor j
+	}//endfor i
 return $elements;
 }
+
 function showElements($x){
-$test=$this->compArr($x,self::$last);
-//var_dump($test);
+static $count=0; // count steps
+$dif=$this->getDiff($x,self::$last);
+echo $count."-  ";
 foreach($x as $k=>$v)
-	if(in_array($k,$test))
-		printf('<p style="color:red;display:inline;">%d </p>   ',$v) ;
+	if(in_array($k,$dif))
+		printf('<p style="color:red;display:inline;">%d </p>',$v) ;
 	else
-		echo "<p style='display:inline;'>$v</p>  ";
+		printf("<p style='display:inline;'>%d</p>  ",$v);
+$count++;
 echo "<hr /><br>";
-//print_r($test);
 self::$last=$x;
-$test=0;
-//var_dump(self::$last);
 }
-function compArr($x,$y){
+
+function getDiff($x,$y){
 	$result=array();
 	for($i=0;$i<count($x);$i++)
 		if($x[$i]!=$y[$i])
 			$result[]+=$i;
-//	echo count($result)."*";
 	return $result;
 	}
 }
