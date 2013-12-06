@@ -10,9 +10,7 @@ Currently supported algorithms
   *Bubble sort
   
   *Insertion sort
-  
-  *Quick sort
-  
+
   *Selection sort
 
 Usage
